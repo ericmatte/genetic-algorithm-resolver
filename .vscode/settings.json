@@ -1,0 +1,10 @@
+{
+  "editor.formatOnSave": false,
+  "editor.tabSize": 2,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "ruby.lintDebounceTime": 500,
+  "ruby.lint": {
+    "rubocop": true
+  },
+}
