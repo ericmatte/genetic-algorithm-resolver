@@ -6,13 +6,30 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
+    ast (2.4.0)
     debase (0.2.4.1)
       debase-ruby_core_source (>= 0.10.2)
     debase-ruby_core_source (0.10.6)
+    jaro_winkler (1.5.2)
     minitest (5.11.3)
+    parallel (1.13.0)
+    parser (2.6.2.0)
+      ast (~> 2.4.0)
+    psych (3.1.0)
+    rainbow (3.0.0)
     rake (12.3.3)
+    rubocop (0.66.0)
+      jaro_winkler (~> 1.5.1)
+      parallel (~> 1.10)
+      parser (>= 2.5, != 2.5.1.1)
+      psych (>= 3.1.0)
+      rainbow (>= 2.2.2, < 4.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 1.4.0, < 1.6)
     ruby-debug-ide (0.7.0)
       rake (>= 0.8.1)
+    ruby-progressbar (1.10.0)
+    unicode-display_width (1.5.0)
 
 PLATFORMS
   ruby
@@ -23,6 +40,7 @@ DEPENDENCIES
   genetic-algorithm-resolver!
   minitest (~> 5.0)
   rake (~> 12.3.2)
+  rubocop
   ruby-debug-ide (~> 0.7)
 
 BUNDLED WITH

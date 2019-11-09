@@ -1,9 +1,10 @@
 # Record and display best individuals accross generations
 class Genetic::Algorithm::FitnessRecorder
-  attr_accessor :best_individual
+  attr_reader :best_individual
 
   def initialize
     @best_individual = nil
+    @best_individual_generation = nil
     @max_fitness = []
     @max_overall_finess = []
     @average_fitness = []
@@ -12,12 +13,13 @@ class Genetic::Algorithm::FitnessRecorder
   def record_generation(generation, population)
     best_generation_individual = population.max_by(&:fitness)
 
-    # Save best individual across all generations
-    if best_generation_individual.fitness > (@best_individual&.fitness || -1e10)
+    # Save the best individual across all generations
+    if best_generation_individual.fitness > @best_individual&.fitness
       @best_individual = best_generation_individual
+      @best_individual_generation = generation
     end
 
-    # Record progress information
+    # Record progress information across all generations
     @max_fitness << best_generation_individual.fitness
     @max_overall_finess << @best_individual.fitness
     average = population.map(&:fitness).inject(:+) / population.length
@@ -29,18 +31,17 @@ class Genetic::Algorithm::FitnessRecorder
     puts "    Average population fitness: #{average}"
   end
 
-  def display_best_individual(shifts)
+  def display_best_individual
     puts "\n"
-    puts "Result: Best overall individual fitness: #{@best_individual.fitness}"
-    puts "                                                     Shift\t->\tSelected employee:"
-    print_shift = ->(shift) { "[#{shift.start_at.localtime} - #{shift.end_at.localtime}]: #{shift.position.name}" }
-    print_employee = ->(employee) { "#{employee.profile.full_name} (#{employee.email})" }
-    puts shifts.each_with_index.map { |s, i| "#{print_shift[s[:shift]]}\t->\t#{print_employee[@best_individual.genes[i].user]}" }
-
-    # puts "#{@max_fitness.each_with_index.map { |_, i| i }},"
-    # puts "#{@max_fitness},"
-    # puts "#{@max_overall_finess},"
-    # puts "#{@average_fitness},"
+    puts "Result: The best overall individual was found on generation #{@best_individual_generation} with:"
+    puts "    Fitness: #{@best_individual.fitness}"
+    puts "    Genes: #{@best_individual.fitness}"
+    puts "\n---\n"
+    puts "Generations evlotion:"
+    puts "#{@max_fitness.each_with_index.map { |_, i| i }},"
+    puts "#{@max_fitness},"
+    puts "#{@max_overall_finess},"
+    puts "#{@average_fitness},"
   end
 
   def save_best_individual_genes

@@ -10,6 +10,9 @@ Metrics/LineLength:
 Metrics/MethodLength:
   Max: 35
 
+Metrics/ClassLength:
+  Enabled: false
+
 Gemspec/OrderedDependencies:
   Enabled: false
 
