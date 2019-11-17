@@ -4,7 +4,12 @@
   "files.trimTrailingWhitespace": true,
   "files.insertFinalNewline": true,
   "ruby.lintDebounceTime": 500,
+  "ruby.useBundler": true,
+  "ruby.useLanguageServer": true,
   "ruby.lint": {
-    "rubocop": true
+    "rubocop": {
+      "useBundler": true
+    }
   },
+  "ruby.format": "rubocop"
 }

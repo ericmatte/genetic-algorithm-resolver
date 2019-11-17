@@ -1,7 +1,7 @@
 
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "genetic/algorithm/version"
+require "genetic/algorithm"
 
 Gem::Specification.new do |spec|
   spec.name          = "genetic-algorithm-resolver"

@@ -7,6 +7,9 @@ Style/StringLiterals:
 Metrics/LineLength:
   Max: 160
 
+Metrics/MethodLength:
+  Max: 35
+
 Gemspec/OrderedDependencies:
   Enabled: false
 
