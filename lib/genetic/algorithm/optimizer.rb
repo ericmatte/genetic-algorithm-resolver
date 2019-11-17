@@ -1,25 +1,15 @@
 module Genetic
   module Algorithm
-    class Optimiser
+    class Optimizer
       attr_accessor :crossover_probability # Int
       attr_accessor :mutation_probability  # Int
       attr_accessor :population_size       # Int
-      attr_accessor :number_of_generations # Int
       attr_accessor :genes_generator       # (index: Int?) -> Array<Gene> | Gene if index.nil?
       attr_accessor :fitness_calculator    # (genes: Array<Gene>) -> Int
 
-      def execute
-        population = initialize_population
-
-        fitness_recorder = FitnessRecorder.new
-        @number_of_generations.times.each do |generation|
-          if generation != @number_of_generations
-            population = do_natural_selection(population)
-          end
-          fitness_recorder.record_generation(generation, population)
-        end
-
-        fitness_recorder.display_best_individual
+      def execute(population = nil)
+        population = initialize_population if population.nil?
+        do_natural_selection(population)
       end
 
       private
@@ -34,6 +24,7 @@ module Genetic
 
       def do_natural_selection(population)
         total_fitness = population.map(&:fitness).inject(:+)
+
         new_population = []
         (@population_size / 2).times.each do
           parent1 = weighted_random_sampling(population, total_fitness)
@@ -49,7 +40,11 @@ module Genetic
       end
 
       def weighted_random_sampling(population, total_fitness)
-        population.max_by { |chromosome| rand**(total_fitness / chromosome.fitness) }
+        if total_fitness.zero?
+          population.sample
+        else
+          population.max_by { |chromosome| rand * (chromosome.fitness / total_fitness) }
+        end
       end
 
       def mate(parent1, parent2)

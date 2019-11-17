@@ -47,4 +47,8 @@ class Genetic::Algorithm::FitnessRecorder
   def save_best_individual_genes
     raise "not implemented".freeze
   end
+
+  def debug
+    false
+  end
 end
