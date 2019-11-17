@@ -24,7 +24,60 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+1. Create a `genes_generator` function:
+
+```ruby
+def genes_generator(index = nil)
+  if index.nil?
+    # return a list of random genes with the chosen length of a chromosome.
+  else
+    # return only one random gene at the selected `index`.
+  end
+end
+```
+
+2. Create a `fitness_calculator` function:
+
+```ruby
+def fitness_calculator(genes)
+  # return the fitness score of the given list of `genes`.
+end
+```
+
+3. Init the optimizer and parameters
+
+```ruby
+ga_optimizer = Genetic::Algorithm::Optimizer.new
+ga_optimizer.population_size = 200
+ga_optimizer.crossover_probability = 0.7
+ga_optimizer.mutation_probability = 0.5
+ga_optimizer.genes_generator = method(:genes_generator)
+ga_optimizer.fitness_calculator = method(:fitness_calculator)
+```
+
+4. `execute` in a loop for a given amount of generations, or until the problem is resolved:
+
+```ruby
+generation = 0
+last_population = nil
+while generation < 500
+  new_population = ga_optimizer.execute(last_population)
+
+  best_chromosome = new_population.max_by(&:fitness)
+
+  if problem_is_solved(best_chromosome)
+    puts "Goal found!"
+    break
+  end
+
+  generation += 1
+  last_population = new_population
+end
+```
+
+### Example
+
+[The Shakespeare Monkey Test](test/genetic/algorithm/shakespeare_monkey_test.rb)
 
 ## Development
 
@@ -37,6 +90,7 @@ TODO: Write usage instructions here
     $ rake test
 
 ### Interactive prompt
+
 Allow you to experiment with the code
 
     $ bin/console
